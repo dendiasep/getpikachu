@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Get Pikachu</title>
+</head>
+<body style="text-align: center;">
+  <h1>Get Pikachu</h1>
+
+  <button type="button" id="button" onclick="getPikachu()" style ="
+  background-color: #f0db6b;
+  padding: 5px 10px;
+  border: 2px solid #f0db6b;
+  border-radius: 5px;">Get!</button>
+  <div id="getPikachu"></div>
+
+  <script>
+    //membuat fungsi di tombol getPikachu
+    function getPikachu() {
+      //Membuat object XMLHttpRequest
+      const xhttp = new XMLHttpRequest();
+      const url = "https://pokeapi.co/api/v2/pokemon/pikachu";
+      const httpMethod = "GET";
+      //membuat callback function
+      xhttp.onload = function() {
+        //mengubah format response dari API menjadi Javascript Object Notation
+        //JSON.parse() mengambil string JSON dan mengubahnya menjadi objek JavaScript.
+        const response = JSON.parse(this.responseText);
+
+        
+        const name = response.name;
+        const number = response.id;
+        const image = response.sprites.front_default;
+        const type = response.types[0].type.name;
+       
+
+        let result = 
+        //membuat style
+        `<div class="card" style ="
+            background-color: #f0db6b;
+            width: 200px;
+            text-align: center;
+            padding: 20px 0;
+            border: 2px solid #a9962c;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 50px;
+            color: white;"
+            
+            <p>${number}: ${name}<br></p>
+            <img src="${image}">
+            <p>Type: ${type}</p>
+          </div>
+        `;
+        console.log(result);
+        
+
+        document.getElementById("getPikachu").innerHTML = result;
+      }
+      
+
+      //mengirim request ke server
+      xhttp.open(httpMethod, url);
+      xhttp.send();
+    }
+  </script>
+</body>
+</html>
